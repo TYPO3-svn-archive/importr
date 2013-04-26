@@ -6,6 +6,9 @@
  * @subpackage Service
  */
 namespace TYPO3\Importr\Service;
+
+use TYPO3\Importr\Exception\ReinitializeException;
+
 /**
  * Service Manager
  *
@@ -61,7 +64,7 @@ class Manager {
 	 */
 	public function addToQueue($filepath, \TYPO3\Importr\Domain\Model\Strategy $strategy, $configuration = array()) {
 		/** @var $import \TYPO3\Importr\Domain\Model\Import */
-		$import = $this->objectManager->create('TYPO3\Importr\Domain\Model\Import');
+		$import = $this->objectManager->get('TYPO3\Importr\Domain\Model\Import');
 		$start = 'now';
 		if (isset($configuration['start'])) {
 			$start = $configuration['start'];
@@ -87,7 +90,7 @@ class Manager {
 			foreach ($imports as $import) {
 				$this->runImport($import);
 			}
-		} catch (\TYPO3\Importr\Exception\ReinitializeException $exc) {
+		} catch (ReinitializeException $exc) {
 			$this->runImports();
 		}
 	}
@@ -195,7 +198,7 @@ class Manager {
 	 *
 	 * @param array $configuration
 	 *
-	 * @throws \TYPO3\Importr\Exception\ReinitializeException
+	 * @throws ReinitializeException
 	 */
 	protected function parseConfiguration(array $configuration) {
 		$this->signalSlotDispatcher->dispatch(__CLASS__, 'preParseConfiguration', array($this, $configuration));
@@ -212,7 +215,7 @@ class Manager {
 			}
 		}
 		if (isset($configuration['reinitializeScheduler'])) {
-			throw new \TYPO3\Importr\Exception\ReinitializeException();
+			throw new ReinitializeException();
 		}
 		$this->signalSlotDispatcher->dispatch(__CLASS__, 'pastParseConfiguration', array($this, $configuration));
 	}

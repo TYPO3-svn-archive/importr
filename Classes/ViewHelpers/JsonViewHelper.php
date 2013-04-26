@@ -1,5 +1,8 @@
 <?php
 namespace TYPO3\Importr\ViewHelpers;
+
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+
 /**
  * JSON de- and encode
  *
@@ -8,7 +11,7 @@ namespace TYPO3\Importr\ViewHelpers;
  * @package    Importr
  * @subpackage ViewHelper
  */
-class JsonViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class JsonViewHelper extends AbstractViewHelper {
 
 	/**
 	 * @return string

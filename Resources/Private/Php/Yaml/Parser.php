@@ -50,7 +50,7 @@ class Parser
         $this->currentLine = '';
         $this->lines = explode("\n", $this->cleanup($value));
 
-        if (function_exists('mb_detect_encoding') && false === mb_detect_encoding($value, 'UTF-8', true)) {
+        if (function_exists('mb_detect_encoding') && FALSE === mb_detect_encoding($value, 'UTF-8', TRUE)) {
             throw new ParseException('The YAML value does not appear to be valid UTF-8.');
         }
 
@@ -70,7 +70,7 @@ class Parser
                 throw new ParseException('A YAML file cannot contain tabs as indentation.', $this->getRealCurrentLineNb() + 1, $this->currentLine);
             }
 
-            $isRef = $isInPlace = $isProcessed = false;
+            $isRef = $isInPlace = $isProcessed = FALSE;
             if (preg_match('#^\-((?P<leadspaces>\s+)(?P<value>.+?))?\s*$#u', $this->currentLine, $values)) {
                 if (isset($values['value']) && preg_match('#^&(?P<ref>[^ ]+) *(?P<value>.*)#u', $values['value'], $matches)) {
                     $isRef = $matches['ref'];
@@ -160,7 +160,7 @@ class Parser
                 } elseif (!isset($values['value']) || '' == trim($values['value'], ' ') || 0 === strpos(ltrim($values['value'], ' '), '#')) {
                     // if next line is less indented or equal, then it means that the current value is null
                     if ($this->isNextLineIndented()) {
-                        $data[$key] = null;
+                        $data[$key] = NULL;
                     } else {
                         $c = $this->getRealCurrentLineNb() + 1;
                         $parser = new Parser($c);
@@ -236,7 +236,7 @@ class Parser
             mb_internal_encoding($mbEncoding);
         }
 
-        return empty($data) ? null : $data;
+        return empty($data) ? NULL : $data;
     }
 
     /**
@@ -268,11 +268,11 @@ class Parser
      *
      * @throws ParseException When indentation problem are detected
      */
-    private function getNextEmbedBlock($indentation = null)
+    private function getNextEmbedBlock($indentation = NULL)
     {
         $this->moveToNextLine();
 
-        if (null === $indentation) {
+        if (NULL === $indentation) {
             $newIndent = $this->getCurrentLineIndentation();
 
             if (!$this->isCurrentLineEmpty() && 0 == $newIndent) {
@@ -320,12 +320,12 @@ class Parser
     private function moveToNextLine()
     {
         if ($this->currentLineNb >= count($this->lines) - 1) {
-            return false;
+            return FALSE;
         }
 
         $this->currentLine = $this->lines[++$this->currentLineNb];
 
-        return true;
+        return TRUE;
     }
 
     /**
@@ -348,7 +348,7 @@ class Parser
     private function parseValue($value)
     {
         if (0 === strpos($value, '*')) {
-            if (false !== $pos = strpos($value, '#')) {
+            if (FALSE !== $pos = strpos($value, '#')) {
                 $value = substr($value, 1, $pos - 2);
             } else {
                 $value = substr($value, 1);
@@ -465,13 +465,13 @@ class Parser
             $notEOF = $this->moveToNextLine();
         }
 
-        if (false === $notEOF) {
-            return false;
+        if (FALSE === $notEOF) {
+            return FALSE;
         }
 
-        $ret = false;
+        $ret = FALSE;
         if ($this->getCurrentLineIndentation() <= $currentIndentation) {
-            $ret = true;
+            $ret = TRUE;
         }
 
         $this->moveToPreviousLine();

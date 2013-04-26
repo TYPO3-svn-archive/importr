@@ -11,9 +11,8 @@
 
 namespace Symfony\Component\Yaml\Tests;
 
-use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\Yaml\Parser;
-use Symfony\Component\Yaml\Exception\ParseException;
+use Symfony\Component\Yaml\Yaml;
 
 class ParserTest extends \PHPUnit_Framework_TestCase
 {
@@ -26,7 +25,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
 
     protected function tearDown()
     {
-        $this->parser = null;
+        $this->parser = NULL;
     }
 
     /**
@@ -34,7 +33,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
      */
     public function testSpecifications($expected, $yaml, $comment)
     {
-        $this->assertEquals($expected, var_export($this->parser->parse($yaml), true), $comment);
+        $this->assertEquals($expected, var_export($this->parser->parse($yaml), TRUE), $comment);
     }
 
     public function getDataFormSpecifications()
@@ -57,7 +56,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                 if (isset($test['todo']) && $test['todo']) {
                     // TODO
                 } else {
-                    $expected = var_export(eval('return '.trim($test['php']).';'), true);
+                    $expected = var_export(eval('return '.trim($test['php']).';'), TRUE);
 
                     $tests[] = array($expected, $test['yaml'], $test['test']);
                 }

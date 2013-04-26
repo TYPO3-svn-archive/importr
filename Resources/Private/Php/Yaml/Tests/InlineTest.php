@@ -11,8 +11,8 @@
 
 namespace Symfony\Component\Yaml\Tests;
 
-use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\Yaml\Inline;
+use Symfony\Component\Yaml\Yaml;
 
 class InlineTest extends \PHPUnit_Framework_TestCase
 {
@@ -43,12 +43,12 @@ class InlineTest extends \PHPUnit_Framework_TestCase
     public function testDumpNumericValueWithLocale()
     {
         $locale = setlocale(LC_NUMERIC, 0);
-        if (false === $locale) {
+        if (FALSE === $locale) {
             $this->markTestSkipped('Your platform does not support locales.');
         }
 
         $required_locales = array('fr_FR.UTF-8', 'fr_FR.UTF8', 'fr_FR.utf-8', 'fr_FR.utf8', 'French_France.1252');
-        if (false === setlocale(LC_ALL, $required_locales)) {
+        if (FALSE === setlocale(LC_ALL, $required_locales)) {
             $this->markTestSkipped('Could not set any of required locales: ' . implode(", ", $required_locales));
         }
 
@@ -69,9 +69,9 @@ class InlineTest extends \PHPUnit_Framework_TestCase
     {
         return array(
             '' => '',
-            'null' => null,
-            'false' => false,
-            'true' => true,
+            'null' => NULL,
+            'false' => FALSE,
+            'true' => TRUE,
             '12' => 12,
             '"quoted string"' => 'quoted string',
             "'quoted string'" => 'quoted string',
@@ -97,13 +97,13 @@ class InlineTest extends \PHPUnit_Framework_TestCase
 
             // sequences
             // urls are no key value mapping. see #3609. Valid yaml "key: value" mappings require a space after the colon
-            '[foo, http://urls.are/no/mappings, false, null, 12]' => array('foo', 'http://urls.are/no/mappings', false, null, 12),
-            '[  foo  ,   bar , false  ,  null     ,  12  ]' => array('foo', 'bar', false, null, 12),
+            '[foo, http://urls.are/no/mappings, false, null, 12]' => array('foo', 'http://urls.are/no/mappings', FALSE, NULL, 12),
+            '[  foo  ,   bar , false  ,  null     ,  12  ]' => array('foo', 'bar', FALSE, NULL, 12),
             '[\'foo,bar\', \'foo bar\']' => array('foo,bar', 'foo bar'),
 
             // mappings
-            '{foo:bar,bar:foo,false:false,null:null,integer:12}' => array('foo' => 'bar', 'bar' => 'foo', 'false' => false, 'null' => null, 'integer' => 12),
-            '{ foo  : bar, bar : foo,  false  :   false,  null  :   null,  integer :  12  }' => array('foo' => 'bar', 'bar' => 'foo', 'false' => false, 'null' => null, 'integer' => 12),
+            '{foo:bar,bar:foo,false:false,null:null,integer:12}' => array('foo' => 'bar', 'bar' => 'foo', 'false' => FALSE, 'null' => NULL, 'integer' => 12),
+            '{ foo  : bar, bar : foo,  false  :   false,  null  :   null,  integer :  12  }' => array('foo' => 'bar', 'bar' => 'foo', 'false' => FALSE, 'null' => NULL, 'integer' => 12),
             '{foo: \'bar\', bar: \'foo: bar\'}' => array('foo' => 'bar', 'bar' => 'foo: bar'),
             '{\'foo\': \'bar\', "bar": \'foo: bar\'}' => array('foo' => 'bar', 'bar' => 'foo: bar'),
             '{\'foo\'\'\': \'bar\', "bar\"": \'foo: bar\'}' => array('foo\'' => 'bar', "bar\"" => 'foo: bar'),
@@ -130,9 +130,9 @@ class InlineTest extends \PHPUnit_Framework_TestCase
     protected function getTestsForDump()
     {
         return array(
-            'null' => null,
-            'false' => false,
-            'true' => true,
+            'null' => NULL,
+            'false' => FALSE,
+            'true' => TRUE,
             '12' => 12,
             "'quoted string'" => 'quoted string',
             '12.30e+02' => 12.30e+02,
@@ -150,11 +150,11 @@ class InlineTest extends \PHPUnit_Framework_TestCase
             "'a \"string\" with ''quoted strings inside'''" => 'a "string" with \'quoted strings inside\'',
 
             // sequences
-            '[foo, bar, false, null, 12]' => array('foo', 'bar', false, null, 12),
+            '[foo, bar, false, null, 12]' => array('foo', 'bar', FALSE, NULL, 12),
             '[\'foo,bar\', \'foo bar\']' => array('foo,bar', 'foo bar'),
 
             // mappings
-            '{ foo: bar, bar: foo, \'false\': false, \'null\': null, integer: 12 }' => array('foo' => 'bar', 'bar' => 'foo', 'false' => false, 'null' => null, 'integer' => 12),
+            '{ foo: bar, bar: foo, \'false\': false, \'null\': null, integer: 12 }' => array('foo' => 'bar', 'bar' => 'foo', 'false' => FALSE, 'null' => NULL, 'integer' => 12),
             '{ foo: bar, bar: \'foo: bar\' }' => array('foo' => 'bar', 'bar' => 'foo: bar'),
 
             // nested sequences and mappings

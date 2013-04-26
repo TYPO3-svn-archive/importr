@@ -10,8 +10,8 @@
 
 namespace Symfony\Component\Yaml;
 
-use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Exception\DumpException;
+use Symfony\Component\Yaml\Exception\ParseException;
 
 /**
  * Inline implements a YAML parser/dumper for the YAML inline syntax.
@@ -71,29 +71,29 @@ class Inline
      */
     static public function dump($value)
     {
-        switch (true) {
+        switch (TRUE) {
             case is_resource($value):
                 throw new DumpException(sprintf('Unable to dump PHP resources in a YAML file ("%s").', get_resource_type($value)));
             case is_object($value):
                 return '!!php/object:'.serialize($value);
             case is_array($value):
                 return self::dumpArray($value);
-            case null === $value:
+            case NULL === $value:
                 return 'null';
-            case true === $value:
+            case TRUE === $value:
                 return 'true';
-            case false === $value:
+            case FALSE === $value:
                 return 'false';
             case ctype_digit($value):
                 return is_string($value) ? "'$value'" : (int) $value;
             case is_numeric($value):
                 $locale = setlocale(LC_NUMERIC, 0);
-                if (false !== $locale) {
+                if (FALSE !== $locale) {
                     setlocale(LC_NUMERIC, 'C');
                 }
                 $repr = is_string($value) ? "'$value'" : (is_infinite($value) ? str_ireplace('INF', '.Inf', strval($value)) : strval($value));
 
-                if (false !== $locale) {
+                if (FALSE !== $locale) {
                     setlocale(LC_NUMERIC, $locale);
                 }
 
@@ -156,7 +156,7 @@ class Inline
      *
      * @throws ParseException When malformed inline YAML string is parsed
      */
-    static public function parseScalar($scalar, $delimiters = null, $stringDelimiters = array('"', "'"), &$i = 0, $evaluate = true)
+    static public function parseScalar($scalar, $delimiters = NULL, $stringDelimiters = array('"', "'"), &$i = 0, $evaluate = TRUE)
     {
         if (in_array($scalar[$i], $stringDelimiters)) {
             // quoted scalar
@@ -168,7 +168,7 @@ class Inline
                 $i += strlen($output);
 
                 // remove comments
-                if (false !== $strpos = strpos($output, ' #')) {
+                if (FALSE !== $strpos = strpos($output, ' #')) {
                     $output = rtrim(substr($output, 0, $strpos));
                 }
             } elseif (preg_match('/^(.+?)('.implode('|', $delimiters).')/', substr($scalar, $i), $match)) {
@@ -250,7 +250,7 @@ class Inline
                     $isQuoted = in_array($sequence[$i], array('"', "'"));
                     $value = self::parseScalar($sequence, array(',', ']'), array('"', "'"), $i);
 
-                    if (!$isQuoted && false !== strpos($value, ': ')) {
+                    if (!$isQuoted && FALSE !== strpos($value, ': ')) {
                         // embedded mapping?
                         try {
                             $value = self::parseMapping('{'.$value.'}');
@@ -298,28 +298,28 @@ class Inline
             }
 
             // key
-            $key = self::parseScalar($mapping, array(':', ' '), array('"', "'"), $i, false);
+            $key = self::parseScalar($mapping, array(':', ' '), array('"', "'"), $i, FALSE);
 
             // value
-            $done = false;
+            $done = FALSE;
             while ($i < $len) {
                 switch ($mapping[$i]) {
                     case '[':
                         // nested sequence
                         $output[$key] = self::parseSequence($mapping, $i);
-                        $done = true;
+                        $done = TRUE;
                         break;
                     case '{':
                         // nested mapping
                         $output[$key] = self::parseMapping($mapping, $i);
-                        $done = true;
+                        $done = TRUE;
                         break;
                     case ':':
                     case ' ':
                         break;
                     default:
                         $output[$key] = self::parseScalar($mapping, array(',', '}'), array('"', "'"), $i);
-                        $done = true;
+                        $done = TRUE;
                         --$i;
                 }
 
@@ -345,11 +345,11 @@ class Inline
     {
         $scalar = trim($scalar);
 
-        switch (true) {
+        switch (TRUE) {
             case 'null' == strtolower($scalar):
             case '' == $scalar:
             case '~' == $scalar:
-                return null;
+                return NULL;
             case 0 === strpos($scalar, '!str'):
                 return (string) substr($scalar, 5);
             case 0 === strpos($scalar, '! '):
@@ -362,9 +362,9 @@ class Inline
 
                 return '0' == $scalar[0] ? octdec($scalar) : (((string) $raw == (string) $cast) ? $cast : $raw);
             case 'true' === strtolower($scalar):
-                return true;
+                return TRUE;
             case 'false' === strtolower($scalar):
-                return false;
+                return FALSE;
             case is_numeric($scalar):
                 return '0x' == $scalar[0].$scalar[1] ? hexdec($scalar) : floatval($scalar);
             case 0 == strcasecmp($scalar, '.inf'):

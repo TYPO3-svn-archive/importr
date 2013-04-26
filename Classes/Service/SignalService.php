@@ -10,6 +10,9 @@
  * @version    CVS: $Id:08.02.13$
  */
 namespace TYPO3\Importr\Service;
+
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /**
  * SignalService.php
  *
@@ -40,7 +43,7 @@ class SignalService {
 			->getStrategy()
 			->getConfiguration(TRUE);
 		if (isset($configuration['after']['rename'])) {
-			$oldFileName = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($import->getFilepath());
+			$oldFileName = GeneralUtility::getFileAbsFileName($import->getFilepath());
 			$info = pathinfo($oldFileName);
 			$newFileName = $info['dirname'] . DIRECTORY_SEPARATOR . date('YmdHis') . '_' . $info['basename'];
 			rename($oldFileName, $newFileName);

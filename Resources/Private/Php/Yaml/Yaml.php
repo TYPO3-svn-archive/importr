@@ -22,11 +22,11 @@ use Symfony\Component\Yaml\Exception\ParseException;
  */
 class Yaml
 {
-    static public $enablePhpParsing = false;
+    static public $enablePhpParsing = FALSE;
 
     static public function enablePhpParsing()
     {
-        self::$enablePhpParsing = true;
+        self::$enablePhpParsing = TRUE;
     }
 
     /**
@@ -53,8 +53,8 @@ class Yaml
     {
         // if input is a file, process it
         $file = '';
-        if (strpos($input, "\n") === false && is_file($input)) {
-            if (false === is_readable($input)) {
+        if (strpos($input, "\n") === FALSE && is_file($input)) {
+            if (FALSE === is_readable($input)) {
                 throw new ParseException(sprintf('Unable to parse "%s" as the file is not readable.', $input));
             }
 

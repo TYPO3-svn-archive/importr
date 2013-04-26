@@ -1,12 +1,10 @@
 <?php
 namespace TYPO3\Importr\Command;
 
-	/**
-	 * Import CommandController for initializing the Tx_Importr_Service_Manager
-	 *
-	 * @package    Extension\importr
-	 * @subpackage Command
-	 */
+use TYPO3\CMS\Core\Messaging\FlashMessage;
+use TYPO3\CMS\Core\Messaging\FlashMessageQueue;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Mvc\Controller\CommandController;
 
 /**
  * Import CommandController for initializing the Tx_Importr_Service_Manager
@@ -18,7 +16,13 @@ namespace TYPO3\Importr\Command;
  * @author      Tim Spiekerkötter <tim.spiekerkoetter@hdnet.de>
  * @version     $Id:$
  */
-class ImportCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\CommandController {
+/**
+ * Import CommandController for initializing the Tx_Importr_Service_Manager
+ *
+ * @package    Extension\importr
+ * @subpackage Command
+ */
+class ImportCommandController extends CommandController {
 
 	/**
 	 * @var \TYPO3\CMS\Extbase\Mvc\Cli\CommandManager
@@ -40,10 +44,10 @@ class ImportCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\CommandC
 	 */
 	public function initializeServiceManagerCommand($mail = NULL) {
 		/**
-		 * @var \TYPO3\CMS\Core\Messaging\FlashMessage $message
+		 * @var FlashMessage $message
 		 */
-		$message = $this->objectManager->create('TYPO3\\CMS\\Core\\Messaging\\FlashMessage', '', 'Initializing ServiceManager', \TYPO3\CMS\Core\Messaging\FlashMessage::INFO);
-		\TYPO3\CMS\Core\Messaging\FlashMessageQueue::addMessage($message);
+		$message = $this->objectManager->create('TYPO3\\CMS\\Core\\Messaging\\FlashMessage', '', 'Initializing ServiceManager', FlashMessage::INFO);
+		FlashMessageQueue::addMessage($message);
 		/**
 		 * @var \TYPO3\Importr\Service\Manager $manager
 		 */
@@ -53,12 +57,12 @@ class ImportCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\CommandC
 			$manager->runImports();
 		} catch (\Exception $e) {
 			/**
-			 * @var \TYPO3\CMS\Core\Messaging\FlashMessage $message
+			 * @var FlashMessage $message
 			 */
-			$message = $this->objectManager->create('TYPO3\\CMS\\Core\\Messaging\\FlashMessage', '', 'An Error occured: ' . $e->getCode() . ': ' . $e->getMessage(), \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR);
-			\TYPO3\CMS\Core\Messaging\FlashMessageQueue::addMessage($message);
+			$message = $this->objectManager->create('TYPO3\\CMS\\Core\\Messaging\\FlashMessage', '', 'An Error occured: ' . $e->getCode() . ': ' . $e->getMessage(), FlashMessage::ERROR);
+			FlashMessageQueue::addMessage($message);
 			// if mail is configured send an email
-			if ($mail !== NULL && \TYPO3\CMS\Core\Utility\GeneralUtility::validEmail($mail)) {
+			if ($mail !== NULL && GeneralUtility::validEmail($mail)) {
 				// @TODO: send mail
 			}
 			return FALSE;
