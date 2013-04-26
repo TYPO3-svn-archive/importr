@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\Importer\Domain\Repository;
+namespace TYPO3\Importr\Domain\Repository;
 /* * *************************************************************
  *  Copyright notice
  *

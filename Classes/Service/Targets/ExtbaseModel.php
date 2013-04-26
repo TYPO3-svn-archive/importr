@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\Importer\Service\Targets;
+namespace TYPO3\Importr\Service\Targets;
 /*
  *   Copyright notice
  *
@@ -30,7 +30,7 @@ namespace TYPO3\Importer\Service\Targets;
  */
 class ExtbaseModel extends AbstractTarget implements TargetInterface {
 	/**
-	 * @var \TYPO3\Importer\Domain\Model\Strategy
+	 * @var \TYPO3\Importr\Domain\Model\Strategy
 	 */
 	protected $strategy;
 
@@ -44,11 +44,11 @@ class ExtbaseModel extends AbstractTarget implements TargetInterface {
 	}
 
 	/**
-	 * @param \TYPO3\Importer\Domain\Model\Strategy $strategy
+	 * @param \TYPO3\Importr\Domain\Model\Strategy $strategy
 	 * @return void
 	 */
-	public function start(\TYPO3\Importer\Domain\Model\Strategy $strategy) {
-		$this->epm = \TYPO3\Importer\Utility::createObject('Tx_Extbase_Persistence_Manager');
+	public function start(\TYPO3\Importr\Domain\Model\Strategy $strategy) {
+		$this->epm = \TYPO3\Importr\Utility::createObject('Tx_Extbase_Persistence_Manager');
 		$this->strategy = $strategy;
 	}
 
@@ -58,7 +58,7 @@ class ExtbaseModel extends AbstractTarget implements TargetInterface {
 	 */
 	public function processEntry(array $entry) {
 		$configuration = $this->getConfiguration();
-		$this->repository = \TYPO3\Importer\Utility::createObject($configuration['repository']);
+		$this->repository = \TYPO3\Importr\Utility::createObject($configuration['repository']);
 		$model = $this->mapModel($this->getModel(), $configuration['mapping'], $entry);
 		$this->repository->add($model);
 		$this->epm->persistAll();

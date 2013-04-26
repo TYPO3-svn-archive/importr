@@ -5,24 +5,24 @@
  * General file information
  *
  * @category   Extension
- * @package    importer
+ * @package    importr
  * @author     Tim Spiekerkoetter HDNET GmbH & Co. <tim.spiekerkoetter@hdnet.de>
  * @version    CVS: $Id:08.02.13$
  */
-namespace TYPO3\Importer\Service;
+namespace TYPO3\Importr\Service;
 /**
  * SignalService.php
  *
  * General class information
  *
- * @package    importer
+ * @package    importr
  * @subpackage Service
  * @author     Tim Spiekerkoetter HDNET GmbH & Co. <tim.spiekerkoetter@hdnet.de>
  */
 class SignalService {
 
 	/**
-	 * To rename a file from the importer you
+	 * To rename a file from the importr you
 	 * have to use the "rename: 1" statement in
 	 * your configuration. The file will be
 	 * prefixed with the current (human readable)
@@ -32,8 +32,8 @@ class SignalService {
 	 * you should only use this in the before
 	 * configuration if you are fully aware of it!
 	 *
-	 * @param $manager \TYPO3\Importer\Service\Manager
-	 * @param $import \TYPO3\Importer\Domain\Model\Import
+	 * @param $manager \TYPO3\Importr\Service\Manager
+	 * @param $import \TYPO3\Importr\Domain\Model\Import
 	 */
 	public function renameFile($manager, $import) {
 		$configuration = $import
@@ -48,14 +48,14 @@ class SignalService {
 	}
 
 	/**
-	 * To truncate a table from the importer you
+	 * To truncate a table from the importr you
 	 * have to use the "truncate: " configuration.
 	 * If you pass a string, then the string is
 	 * interpreted as a table name. If you pass
 	 * an array, every element is used as a table
 	 * name.
 	 *
-	 * @param \TYPO3\Importer\Service\Manager $manager
+	 * @param \TYPO3\Importr\Service\Manager $manager
 	 * @param array                       $configuration
 	 */
 	public function truncateTable($manager, $configuration) {

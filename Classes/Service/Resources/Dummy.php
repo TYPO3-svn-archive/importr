@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\Importer\Service\Resources;
+namespace TYPO3\Importr\Service\Resources;
 /* * *************************************************************
  *  Copyright notice
  *
@@ -77,10 +77,10 @@ class Dummy extends AbstractResource implements ResourceInterface {
 	}
 
 	/**
-	 * @param \TYPO3\Importer\Domain\Model\Strategy $strategy
+	 * @param \TYPO3\Importr\Domain\Model\Strategy $strategy
 	 * @param string                            $filepath
 	 */
-	public function start(\TYPO3\Importer\Domain\Model\Strategy $strategy, $filepath) {
+	public function start(\TYPO3\Importr\Domain\Model\Strategy $strategy, $filepath) {
 
 	}
 

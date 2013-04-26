@@ -23,7 +23,7 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  * *************************************************************  */
-namespace TYPO3\Importer\Service;
+namespace TYPO3\Importr\Service;
 /**
  * Description of Yaml
  *
@@ -40,7 +40,7 @@ class Yaml {
 		/**
 		 * Maybe an custom autoloader would be cool here.
 		 */
-		$yamlComponentPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('importer', 'Resources/Private/Php/Yaml/');
+		$yamlComponentPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('importr', 'Resources/Private/Php/Yaml/');
 		require_once $yamlComponentPath.'Yaml.php';
 		require_once $yamlComponentPath.'Parser.php';
 		require_once $yamlComponentPath.'Inline.php';

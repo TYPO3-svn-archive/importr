@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\Importer\Service\Targets;
+namespace TYPO3\Importr\Service\Targets;
 /* * *************************************************************
  *  Copyright notice
  *
@@ -25,15 +25,15 @@ namespace TYPO3\Importer\Service\Targets;
  * *************************************************************  */
 
 /**
- * Description of Tx_Importer_Service_Targets_DbRecord
+ * Description of Tx_Importr_Service_Targets_DbRecord
  *
  * @author timlochmueller
  */
 class DbRecord extends AbstractTarget implements TargetInterface {
 	/**
-	 * @param \TYPO3\Importer\Domain\Model\Strategy $strategy
+	 * @param \TYPO3\Importr\Domain\Model\Strategy $strategy
 	 */
-	public function start(\TYPO3\Importer\Domain\Model\Strategy $strategy) {
+	public function start(\TYPO3\Importr\Domain\Model\Strategy $strategy) {
 
 	}
 

@@ -23,7 +23,7 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  * *************************************************************  */
-namespace TYPO3\Importer\Service\Resources;
+namespace TYPO3\Importr\Service\Resources;
 /**
  * Description of ResourceInterface
  *
@@ -32,10 +32,10 @@ namespace TYPO3\Importer\Service\Resources;
 interface ResourceInterface {
 
 	/**
-	 * @param $strategy \TYPO3\Importer\Domain\Model\Strategy
+	 * @param $strategy \TYPO3\Importr\Domain\Model\Strategy
 	 * @param $filepath array
 	 */
-	public function start(\TYPO3\Importer\Domain\Model\Strategy $strategy, $filepath);
+	public function start(\TYPO3\Importr\Domain\Model\Strategy $strategy, $filepath);
 
 	/**
 	 * @return string

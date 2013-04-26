@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\Importer;
+namespace TYPO3\Importr;
 
 	/* * *************************************************************
 	 *  Copyright notice

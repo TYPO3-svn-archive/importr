@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\Importer\Service\Targets;
+namespace TYPO3\Importr\Service\Targets;
 /* * *************************************************************
  *  Copyright notice
  *

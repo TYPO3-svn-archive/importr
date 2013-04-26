@@ -19,7 +19,7 @@
 /**
  * StartImport Exception
  *
- * @package    importer
+ * @package    importr
  * @subpackage Exception
  * @license    http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  * @author     Tim Spiekerkötter <tim.spiekerkoetter@hdnet.de> HDNET GmbH & Co. KG

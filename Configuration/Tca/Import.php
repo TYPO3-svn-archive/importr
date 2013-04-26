@@ -4,8 +4,8 @@ if (!defined('TYPO3_MODE')) {
 	die('Access denied.');
 }
 
-$GLOBALS['TCA']['tx_importer_domain_model_import'] = array(
-	'ctrl' => $GLOBALS['TCA']['tx_importer_domain_model_import']['ctrl'],
+$GLOBALS['TCA']['tx_importr_domain_model_import'] = array(
+	'ctrl' => $GLOBALS['TCA']['tx_importr_domain_model_import']['ctrl'],
 	'interface' => array(
 		'showRecordFieldList' => 'strategy,filepath,starttime,endtime,pointer,amount',
 	),
@@ -42,7 +42,7 @@ $GLOBALS['TCA']['tx_importer_domain_model_import'] = array(
 			),
 		),
 		'pointer' => array(
-			'label' => 'LLL:EXT:importer/Resources/Private/Language/locallang.xml:pointer',
+			'label' => 'LLL:EXT:importr/Resources/Private/Language/locallang.xml:pointer',
 			'config' => array(
 				'type' => 'none',
 				'size' => 30,
@@ -50,7 +50,7 @@ $GLOBALS['TCA']['tx_importer_domain_model_import'] = array(
 			),
 		),
 		'amount' => array(
-			'label' => 'LLL:EXT:importer/Resources/Private/Language/locallang.xml:amount',
+			'label' => 'LLL:EXT:importr/Resources/Private/Language/locallang.xml:amount',
 			'config' => array(
 				'type' => 'none',
 				'size' => 30,
@@ -58,7 +58,7 @@ $GLOBALS['TCA']['tx_importer_domain_model_import'] = array(
 			),
 		),
 		'errors' => array(
-			'label' => 'LLL:EXT:importer/Resources/Private/Language/locallang.xml:error',
+			'label' => 'LLL:EXT:importr/Resources/Private/Language/locallang.xml:error',
 			'config' => array(
 				'type' => 'none',
 				'size' => 30,
@@ -66,7 +66,7 @@ $GLOBALS['TCA']['tx_importer_domain_model_import'] = array(
 			),
 		),
 		'inserted' => array(
-			'label' => 'LLL:EXT:importer/Resources/Private/Language/locallang.xml:error',
+			'label' => 'LLL:EXT:importr/Resources/Private/Language/locallang.xml:error',
 			'config' => array(
 				'type' => 'none',
 				'size' => 30,
@@ -74,7 +74,7 @@ $GLOBALS['TCA']['tx_importer_domain_model_import'] = array(
 			),
 		),
 		'updated' => array(
-			'label' => 'LLL:EXT:importer/Resources/Private/Language/locallang.xml:error',
+			'label' => 'LLL:EXT:importr/Resources/Private/Language/locallang.xml:error',
 			'config' => array(
 				'type' => 'none',
 				'size' => 30,
@@ -82,7 +82,7 @@ $GLOBALS['TCA']['tx_importer_domain_model_import'] = array(
 			),
 		),
 		'ignored' => array(
-			'label' => 'LLL:EXT:importer/Resources/Private/Language/locallang.xml:error',
+			'label' => 'LLL:EXT:importr/Resources/Private/Language/locallang.xml:error',
 			'config' => array(
 				'type' => 'none',
 				'size' => 30,
@@ -90,7 +90,7 @@ $GLOBALS['TCA']['tx_importer_domain_model_import'] = array(
 			),
 		),
 		'unknowns' => array(
-			'label' => 'LLL:EXT:importer/Resources/Private/Language/locallang.xml:error',
+			'label' => 'LLL:EXT:importr/Resources/Private/Language/locallang.xml:error',
 			'config' => array(
 				'type' => 'none',
 				'size' => 30,
@@ -98,7 +98,7 @@ $GLOBALS['TCA']['tx_importer_domain_model_import'] = array(
 			),
 		),
 		'filepath' => array(
-			'label' => 'LLL:EXT:importer/Resources/Private/Language/locallang.xml:filepath',
+			'label' => 'LLL:EXT:importr/Resources/Private/Language/locallang.xml:filepath',
 			'config' => array(
 				'type' => 'input',
 				'size' => 50,
@@ -120,10 +120,10 @@ $GLOBALS['TCA']['tx_importer_domain_model_import'] = array(
 			),
 		),
 		'strategy' => array(
-			'label' => 'LLL:EXT:importer/Resources/Private/Language/locallang.xml:strategy',
+			'label' => 'LLL:EXT:importr/Resources/Private/Language/locallang.xml:strategy',
 			'config' => array(
 				'type' => 'select',
-				'foreign_table' => 'tx_importer_domain_model_strategy',
+				'foreign_table' => 'tx_importr_domain_model_strategy',
 				'maxitems' => 1,
 				'size' => 1,
 			),

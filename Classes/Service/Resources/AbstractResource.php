@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\Importer\Service\Resources;
+namespace TYPO3\Importr\Service\Resources;
 /* * *************************************************************
  *  Copyright notice
  *

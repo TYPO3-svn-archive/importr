@@ -1,7 +1,7 @@
 #
-# Table structure for table 'tx_importer_domain_model_import'
+# Table structure for table 'tx_importr_domain_model_import'
 #
-CREATE TABLE tx_importer_domain_model_import (
+CREATE TABLE tx_importr_domain_model_import (
 	uid int(11) NOT NULL auto_increment,
 	pid int(11) DEFAULT '0' NOT NULL,
 
@@ -25,9 +25,9 @@ CREATE TABLE tx_importer_domain_model_import (
 );
 
 #
-# Table structure for table 'tx_importer_domain_model_strategy'
+# Table structure for table 'tx_importr_domain_model_strategy'
 #
-CREATE TABLE tx_importer_domain_model_strategy (
+CREATE TABLE tx_importr_domain_model_strategy (
 	uid int(11) NOT NULL auto_increment,
 	pid int(11) DEFAULT '0' NOT NULL,
 

@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\Importer\Domain\Model;
+namespace TYPO3\Importr\Domain\Model;
 
 	/* * *************************************************************
 	 *  Copyright notice
@@ -33,7 +33,7 @@ namespace TYPO3\Importer\Domain\Model;
 class Import extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
-	 * @var \TYPO3\Importer\Domain\Model\Strategy
+	 * @var \TYPO3\Importr\Domain\Model\Strategy
 	 */
 	protected $strategy;
 
@@ -88,7 +88,7 @@ class Import extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $errors;
 
 	/**
-	 * @return \TYPO3\Importer\Domain\Model\Strategy
+	 * @return \TYPO3\Importr\Domain\Model\Strategy
 	 */
 	public function getStrategy() {
 		return $this->strategy;
@@ -130,9 +130,9 @@ class Import extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 
 	/**
-	 * @param \TYPO3\Importer\Domain\Model\Strategy $strategy
+	 * @param \TYPO3\Importr\Domain\Model\Strategy $strategy
 	 */
-	public function setStrategy(\TYPO3\Importer\Domain\Model\Strategy $strategy) {
+	public function setStrategy(\TYPO3\Importr\Domain\Model\Strategy $strategy) {
 		$this->strategy = $strategy;
 	}
 
@@ -306,19 +306,19 @@ class Import extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 */
 	public function increaseCount($type) {
 		switch ($type) {
-			case \TYPO3\Importer\Service\Targets\TargetInterface::RESULT_INSERT:
+			case \TYPO3\Importr\Service\Targets\TargetInterface::RESULT_INSERT:
 				$this->setInserted($this->getInserted() + 1);
 				break;
-			case \TYPO3\Importer\Service\Targets\TargetInterface::RESULT_UPDATE:
+			case \TYPO3\Importr\Service\Targets\TargetInterface::RESULT_UPDATE:
 				$this->setUpdated($this->getUpdated() + 1);
 				break;
-			case \TYPO3\Importer\Service\Targets\TargetInterface::RESULT_IGNORED:
+			case \TYPO3\Importr\Service\Targets\TargetInterface::RESULT_IGNORED:
 				$this->setIgnored($this->getIgnored() + 1);
 				break;
-			case \TYPO3\Importer\Service\Targets\TargetInterface::RESULT_UNSURE:
+			case \TYPO3\Importr\Service\Targets\TargetInterface::RESULT_UNSURE:
 				$this->setUnknowns($this->getUnknowns() + 1);
 				break;
-			case \TYPO3\Importer\Service\Targets\TargetInterface::RESULT_ERROR:
+			case \TYPO3\Importr\Service\Targets\TargetInterface::RESULT_ERROR:
 				$this->setErrors($this->getErrors() + 1);
 				break;
 		}

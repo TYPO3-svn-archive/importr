@@ -2,14 +2,14 @@
 /**
  * Service Manager
  *
- * @package    Extension\importer
+ * @package    Extension\importr
  * @subpackage Service
  */
-namespace TYPO3\Importer\Service;
+namespace TYPO3\Importr\Service;
 /**
  * Service Manager
  *
- * @package     Extension\importer
+ * @package     Extension\importr
  * @subpackage  Service
  * @license     http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  * @author      Tim Lochmüller <tim.lochmueller@hdnet.de>
@@ -18,13 +18,13 @@ namespace TYPO3\Importer\Service;
 class Manager {
 
 	/**
-	 * @var \TYPO3\Importer\Domain\Repository\ImportRepository
+	 * @var \TYPO3\Importr\Domain\Repository\ImportRepository
 	 * @inject
 	 */
 	protected $importRepository;
 
 	/**
-	 * @var \TYPO3\Importer\Domain\Repository\StrategyRepository
+	 * @var \TYPO3\Importr\Domain\Repository\StrategyRepository
 	 * @inject
 	 */
 	protected $strategyRepository;
@@ -56,12 +56,12 @@ class Manager {
 
 	/**
 	 * @param string                            $filepath
-	 * @param \TYPO3\Importer\Domain\Model\Strategy $strategy
+	 * @param \TYPO3\Importr\Domain\Model\Strategy $strategy
 	 * @param array                             $configuration
 	 */
-	public function addToQueue($filepath, \TYPO3\Importer\Domain\Model\Strategy $strategy, $configuration = array()) {
-		/** @var $import \TYPO3\Importer\Domain\Model\Import */
-		$import = $this->objectManager->create('TYPO3\Importer\Domain\Model\Import');
+	public function addToQueue($filepath, \TYPO3\Importr\Domain\Model\Strategy $strategy, $configuration = array()) {
+		/** @var $import \TYPO3\Importr\Domain\Model\Import */
+		$import = $this->objectManager->create('TYPO3\Importr\Domain\Model\Import');
 		$start = 'now';
 		if (isset($configuration['start'])) {
 			$start = $configuration['start'];
@@ -79,7 +79,7 @@ class Manager {
 	}
 
 	/**
-	 * run the Importer
+	 * run the Importr
 	 */
 	public function runImports() {
 		try {
@@ -87,7 +87,7 @@ class Manager {
 			foreach ($imports as $import) {
 				$this->runImport($import);
 			}
-		} catch (\TYPO3\Importer\Exception\ReinitializeException $exc) {
+		} catch (\TYPO3\Importr\Exception\ReinitializeException $exc) {
 			$this->runImports();
 		}
 	}
@@ -96,15 +96,15 @@ class Manager {
 	 * Get the preview
 	 *
 	 * @param string                            $filepath
-	 * @param \TYPO3\Importer\Domain\Model\Strategy $strategy
+	 * @param \TYPO3\Importr\Domain\Model\Strategy $strategy
 	 *
 	 * @return array
 	 */
-	public function getPreview(\TYPO3\Importer\Domain\Model\Strategy $strategy, $filepath) {
+	public function getPreview(\TYPO3\Importr\Domain\Model\Strategy $strategy, $filepath) {
 		$data = array();
 		$resources = $this->initializeResources($strategy, $filepath);
 		foreach ($resources as $resource) {
-			/** @var \TYPO3\Importer\Service\Resources\ResourceInterface $resource */
+			/** @var \TYPO3\Importr\Service\Resources\ResourceInterface $resource */
 			// Resourcen Object anhand der Datei auswählen
 			if (preg_match($resource->getFilepathExpression(), $filepath)) {
 				// Resource "benutzen"
@@ -124,9 +124,9 @@ class Manager {
 	/**
 	 * Magic Runner
 	 *
-	 * @param \TYPO3\Importer\Domain\Model\Import $import
+	 * @param \TYPO3\Importr\Domain\Model\Import $import
 	 */
-	protected function runImport(\TYPO3\Importer\Domain\Model\Import $import) {
+	protected function runImport(\TYPO3\Importr\Domain\Model\Import $import) {
 		$this->signalSlotDispatcher->dispatch(__CLASS__, 'preImport', array($this, $import));
 		$resources = $this->initializeResourcesByImport($import);
 		$targets = $this->initializeTargets($import);
@@ -135,7 +135,7 @@ class Manager {
 			->getConfiguration(TRUE);
 
 		foreach ($resources as $resource) {
-			/** @var \TYPO3\Importer\Service\Resources\ResourceInterface $resource */
+			/** @var \TYPO3\Importr\Service\Resources\ResourceInterface $resource */
 			// Resourcen Object anhand der Datei auswählen
 			if (preg_match($resource->getFilepathExpression(), $import->getFilepath())) {
 				if (is_array($strategyConfiguration['before'])) {
@@ -172,19 +172,19 @@ class Manager {
 	}
 
 	/**
-	 * @param \TYPO3\Importer\Service\Targets\TargetInterface $target
+	 * @param \TYPO3\Importr\Service\Targets\TargetInterface $target
 	 * @param mixed                                       $entry
-	 * @param \TYPO3\Importer\Domain\Model\Import             $import
+	 * @param \TYPO3\Importr\Domain\Model\Import             $import
 	 * @param int                                         $pointer
 	 *
 	 * @throws \Exception
 	 */
-	protected function processTarget(\TYPO3\Importer\Service\Targets\TargetInterface $target, $entry, \TYPO3\Importer\Domain\Model\Import $import, $pointer) {
+	protected function processTarget(\TYPO3\Importr\Service\Targets\TargetInterface $target, $entry, \TYPO3\Importr\Domain\Model\Import $import, $pointer) {
 		try {
 			$result = $target->processEntry($entry);
 			$import->increaseCount($result);
 		} catch (\Exception $e) {
-			$import->increaseCount(\TYPO3\Importer\Service\Targets\TargetInterface::RESULT_ERROR);
+			$import->increaseCount(\TYPO3\Importr\Service\Targets\TargetInterface::RESULT_ERROR);
 			$this->updateImport($import, $pointer + 1);
 			throw $e;
 		}
@@ -195,7 +195,7 @@ class Manager {
 	 *
 	 * @param array $configuration
 	 *
-	 * @throws \TYPO3\Importer\Exception\ReinitializeException
+	 * @throws \TYPO3\Importr\Exception\ReinitializeException
 	 */
 	protected function parseConfiguration(array $configuration) {
 		$this->signalSlotDispatcher->dispatch(__CLASS__, 'preParseConfiguration', array($this, $configuration));
@@ -205,14 +205,14 @@ class Manager {
 		if (isset($configuration['createImport']) && is_array($configuration['createImport'])) {
 			foreach ($configuration['createImport'] as $create) {
 				$strategy = $this->strategyRepository->findByUid((int)$create['importId']);
-				if ($strategy instanceof \TYPO3\Importer\Domain\Model\Strategy) {
+				if ($strategy instanceof \TYPO3\Importr\Domain\Model\Strategy) {
 					$filepath = isset($create['filepath']) ? $create['filepath'] : '';
 					$this->addToQueue($filepath, $strategy, $create);
 				}
 			}
 		}
 		if (isset($configuration['reinitializeScheduler'])) {
-			throw new \TYPO3\Importer\Exception\ReinitializeException();
+			throw new \TYPO3\Importr\Exception\ReinitializeException();
 		}
 		$this->signalSlotDispatcher->dispatch(__CLASS__, 'pastParseConfiguration', array($this, $configuration));
 	}
@@ -229,21 +229,21 @@ class Manager {
 	}
 
 	/**
-	 * @param \TYPO3\Importer\Domain\Model\Import $import
+	 * @param \TYPO3\Importr\Domain\Model\Import $import
 	 *
 	 * @return array
 	 */
-	protected function initializeResourcesByImport(\TYPO3\Importer\Domain\Model\Import $import) {
+	protected function initializeResourcesByImport(\TYPO3\Importr\Domain\Model\Import $import) {
 		return $this->initializeResources($import->getStrategy(), $import->getFilepath());
 	}
 
 	/**
-	 * @param \TYPO3\Importer\Domain\Model\Strategy $strategy
+	 * @param \TYPO3\Importr\Domain\Model\Strategy $strategy
 	 * @param string                            $filepath
 	 *
 	 * @return array
 	 */
-	protected function initializeResources(\TYPO3\Importer\Domain\Model\Strategy $strategy, $filepath) {
+	protected function initializeResources(\TYPO3\Importr\Domain\Model\Strategy $strategy, $filepath) {
 		$resources = array();
 		$resourceConfiguration = $strategy->getResources(TRUE);
 		foreach ($resourceConfiguration as $resource => $configuration) {
@@ -256,11 +256,11 @@ class Manager {
 	}
 
 	/**
-	 * @param \TYPO3\Importer\Domain\Model\Import $import
+	 * @param \TYPO3\Importr\Domain\Model\Import $import
 	 *
 	 * @return array
 	 */
-	protected function initializeTargets(\TYPO3\Importer\Domain\Model\Import $import) {
+	protected function initializeTargets(\TYPO3\Importr\Domain\Model\Import $import) {
 		$targets = array();
 		$targetConfiguration = $import
 			->getStrategy()
@@ -276,10 +276,10 @@ class Manager {
 	}
 
 	/**
-	 * @param \TYPO3\Importer\Domain\Model\Import $import
+	 * @param \TYPO3\Importr\Domain\Model\Import $import
 	 * @param bool|int                        $pointer
 	 */
-	protected function updateImport(\TYPO3\Importer\Domain\Model\Import $import, $pointer = FALSE) {
+	protected function updateImport(\TYPO3\Importr\Domain\Model\Import $import, $pointer = FALSE) {
 		if ($pointer) {
 			$import->setPointer($pointer);
 		}

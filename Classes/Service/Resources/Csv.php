@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\Importer\Service\Resources;
+namespace TYPO3\Importr\Service\Resources;
 
 	/* * *************************************************************
 	 *  Copyright notice
@@ -28,7 +28,7 @@ namespace TYPO3\Importer\Service\Resources;
 /**
  * Description of Csv
  *
- * Tx_Importer_Service_Resources_Csv:
+ * Tx_Importr_Service_Resources_Csv:
  *  [length: 1000]
  *  [delimiter: ,]
  *  [enclosure: "]
@@ -67,10 +67,10 @@ class Csv extends AbstractResource implements ResourceInterface {
 	}
 
 	/**
-	 * @param \TYPO3\Importer\Domain\Model\Strategy $strategy
+	 * @param \TYPO3\Importr\Domain\Model\Strategy $strategy
 	 * @param string                                $filepath
 	 */
-	public function start(\TYPO3\Importer\Domain\Model\Strategy $strategy, $filepath) {
+	public function start(\TYPO3\Importr\Domain\Model\Strategy $strategy, $filepath) {
 		$this->filepath = $filepath;
 	}
 

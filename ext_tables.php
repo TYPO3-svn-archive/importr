@@ -5,17 +5,17 @@ if (!defined('TYPO3_MODE')) {
 }
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
-	'TYPO3.' . $_EXTKEY, 'file', 'tx_importer_mod', '', array(
-		'Importer' => 'index,import,preview,create',
+	'TYPO3.' . $_EXTKEY, 'file', 'tx_importr_mod', '', array(
+		'Importr' => 'index,import,preview,create',
 	), array(
 		'access' => 'user,group',
 		'icon' => 'EXT:' . $_EXTKEY . '/ext_icon.gif',
 		'labels' => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_mod.xml'
 	)
 );
-$GLOBALS['TCA']['tx_importer_domain_model_import'] = array(
+$GLOBALS['TCA']['tx_importr_domain_model_import'] = array(
 	'ctrl' => array(
-		'title' => 'LLL:EXT:importer/Resources/Private/Language/locallang.xml:tx_importer_domain_model_import',
+		'title' => 'LLL:EXT:importr/Resources/Private/Language/locallang.xml:tx_importr_domain_model_import',
 		'label' => 'starttime',
 		'label_alt' => 'filepath',
 		'label_alt_force' => 1,
@@ -30,9 +30,9 @@ $GLOBALS['TCA']['tx_importer_domain_model_import'] = array(
 		'showRecordFieldList' => ''
 	)
 );
-$GLOBALS['TCA']['tx_importer_domain_model_strategy'] = array(
+$GLOBALS['TCA']['tx_importr_domain_model_strategy'] = array(
 	'ctrl' => array(
-		'title' => 'LLL:EXT:importer/Resources/Private/Language/locallang.xml:tx_importer_domain_model_strategy',
+		'title' => 'LLL:EXT:importr/Resources/Private/Language/locallang.xml:tx_importr_domain_model_strategy',
 		'label' => 'title',
 		'searchFields' => 'title',
 		'rootLevel' => 1,

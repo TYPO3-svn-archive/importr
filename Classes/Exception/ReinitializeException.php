@@ -23,7 +23,7 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  * *************************************************************  */
-namespace TYPO3\Importer\Exception;
+namespace TYPO3\Importr\Exception;
 /**
  * Description of ReinitializeException
  *

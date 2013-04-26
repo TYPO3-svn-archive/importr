@@ -5,7 +5,7 @@ if (!defined('TYPO3_MODE')) {
 }
 
 if (TYPO3_MODE === 'BE') {
-	$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['extbase']['commandControllers'][]  = 'TYPO3\\Importer\\Command\\ImportCommandController';
+	$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['extbase']['commandControllers'][]  = 'TYPO3\\Importr\\Command\\ImportCommandController';
 }
 /**
  * Two possible (and implemented signals). You can use them
@@ -16,6 +16,6 @@ if (TYPO3_MODE === 'BE') {
  * By default they are not connected to the slots, because they
  * can be a security risk.
  *
- * t3lib_div::makeInstance('Tx_Extbase_SignalSlot_Dispatcher')->connect('Tx_Importer_Service_Manager', 'preParseConfiguration', 'Tx_Importer_Service_SignalService', 'truncateTable');
- * t3lib_div::makeInstance('Tx_Extbase_SignalSlot_Dispatcher')->connect('Tx_Importer_Service_Manager', 'pastImport', 'Tx_Importer_Service_SignalService', 'renameFile');
+ * t3lib_div::makeInstance('Tx_Extbase_SignalSlot_Dispatcher')->connect('Tx_Importr_Service_Manager', 'preParseConfiguration', 'Tx_Importr_Service_SignalService', 'truncateTable');
+ * t3lib_div::makeInstance('Tx_Extbase_SignalSlot_Dispatcher')->connect('Tx_Importr_Service_Manager', 'pastImport', 'Tx_Importr_Service_SignalService', 'renameFile');
  */

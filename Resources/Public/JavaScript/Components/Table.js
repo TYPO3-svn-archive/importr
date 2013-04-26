@@ -1,19 +1,19 @@
-/* 
+/*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
 
 
-Ext.ns('TYPO3.Importer');
+Ext.ns('TYPO3.Importr');
 
-TYPO3.Importer.Table = Ext.extend(Ext.grid.GridPanel,{
+TYPO3.Importr.Table = Ext.extend(Ext.grid.GridPanel,{
 	constructor: function(config) {
 		var store = new Ext.data.ArrayStore({
 			fields: this.createFieldsFromData(config.storeData)
 		});
 
 		store.loadData(config.storeData);
-		
+
 		config = Ext.apply({
 			store: store,
 			columns: this.createColumnsFromData(config.storeData),
@@ -22,9 +22,9 @@ TYPO3.Importer.Table = Ext.extend(Ext.grid.GridPanel,{
 				//forceFit: true
 			}
 		},config);
-		
-		
-		TYPO3.Importer.Table.superclass.constructor.call(this, config);
+
+
+		TYPO3.Importr.Table.superclass.constructor.call(this, config);
 	},
 	/**
 	 * Creates needed Fields-Array for
@@ -38,8 +38,8 @@ TYPO3.Importer.Table = Ext.extend(Ext.grid.GridPanel,{
 				fields.push({name: 'field' + i});
 		};
 		return fields;
-	}, 
-	
+	},
+
 	createColumnsFromData: function (data) {
 		var columns = [],i;
 		for(i in data[0]) {
@@ -52,10 +52,10 @@ TYPO3.Importer.Table = Ext.extend(Ext.grid.GridPanel,{
 				});
 			}
 		}
-	
+
 		return columns;
 	},
-	
+
 	/**
 	 * Counts the length of the data Array
 	 * @return integer

@@ -2,12 +2,12 @@
 <T3locallang>
 	<meta type="array">
 		<type>database</type>
-		<description>Language labels for database tables/fields belonging to extension 'importer'</description>
+		<description>Language labels for database tables/fields belonging to extension 'importr'</description>
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
-			<label index="tx_importer_domain_model_import">Import</label>
-			<label index="tx_importer_domain_model_strategy">Strategy</label>
+			<label index="tx_importr_domain_model_import">Import</label>
+			<label index="tx_importr_domain_model_strategy">Strategy</label>
 			<label index="title">Title</label>
 			<label index="configuration">Configuration</label>
 			<label index="resources">Resources</label>
@@ -16,11 +16,11 @@
 			<label index="amount">Amount</label>
 			<label index="filepath">Filepath</label>
 			<label index="strategy">Strategy</label>
-			<label index="importer">Importer</label>
+			<label index="importr">Importr</label>
 		</languageKey>
 		<languageKey index="de" type="array">
-			<label index="tx_importer_domain_model_import">Import</label>
-			<label index="tx_importer_domain_model_strategy">Strategie</label>
+			<label index="tx_importr_domain_model_import">Import</label>
+			<label index="tx_importr_domain_model_strategy">Strategie</label>
 			<label index="title">Titel</label>
 			<label index="configuration">Konfiguration</label>
 			<label index="resources">Ressourcen</label>

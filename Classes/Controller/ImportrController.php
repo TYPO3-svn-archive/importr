@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\Importer\Controller;
+namespace TYPO3\Importr\Controller;
 
 	/* * *************************************************************
 	 *  Copyright notice
@@ -26,11 +26,11 @@ namespace TYPO3\Importer\Controller;
 	 * *************************************************************  */
 
 /**
- * Description of ImporterController
+ * Description of ImportrController
  *
  * @author timlochmueller
  */
-class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
+class ImportrController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
 	/**
 	 * @var \TYPO3\CMS\Core\Resource\ResourceFactory
@@ -39,19 +39,19 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	protected $resourceFactory;
 
 	/**
-	 * @var \TYPO3\Importer\Domain\Repository\StrategyRepository
+	 * @var \TYPO3\Importr\Domain\Repository\StrategyRepository
 	 * @inject
 	 */
 	protected $strategyRepository;
 
 	/**
-	 * @var \TYPO3\Importer\Domain\Repository\ImportRepository
+	 * @var \TYPO3\Importr\Domain\Repository\ImportRepository
 	 * @inject
 	 */
 	protected $importRepository;
 
 	/**
-	 * @var \TYPO3\Importer\Service\Manager
+	 * @var \TYPO3\Importr\Service\Manager
 	 * @inject
 	 */
 	protected $importManager;
@@ -86,11 +86,11 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	/**
 	 *
 	 * @param string                                $identifier
-	 * @param \TYPO3\Importer\Domain\Model\Strategy $strategy
+	 * @param \TYPO3\Importr\Domain\Model\Strategy $strategy
 	 *
 	 * @return void
 	 */
-	public function previewAction($identifier, \TYPO3\Importer\Domain\Model\Strategy $strategy) {
+	public function previewAction($identifier, \TYPO3\Importr\Domain\Model\Strategy $strategy) {
 		$file = $this->resourceFactory->getObjectFromCombinedIdentifier($identifier);
 		$this->view->assign('file', $file);
 		$this->view->assign('strategy', $strategy);
@@ -102,11 +102,11 @@ class ImporterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	/**
 	 *
 	 * @param string                                $filepath
-	 * @param \TYPO3\Importer\Domain\Model\Strategy $strategy
+	 * @param \TYPO3\Importr\Domain\Model\Strategy $strategy
 	 *
 	 * @return void
 	 */
-	public function createAction($filepath, \TYPO3\Importer\Domain\Model\Strategy $strategy) {
+	public function createAction($filepath, \TYPO3\Importr\Domain\Model\Strategy $strategy) {
 		$this->importManager->addToQueue($filepath, $strategy);
 		$this->flashMessageContainer->add('The Import file ' . $filepath . ' width the strategy ' . $strategy->getTitle() . ' was successfully added to the queue', 'Import is in Queue');
 		$this->redirect('index');

@@ -4,8 +4,8 @@ if (!defined('TYPO3_MODE')) {
 	die('Access denied.');
 }
 
-$GLOBALS['TCA']['tx_importer_domain_model_strategy'] = array(
-	'ctrl' => $GLOBALS['TCA']['tx_importer_domain_model_strategy']['ctrl'],
+$GLOBALS['TCA']['tx_importr_domain_model_strategy'] = array(
+	'ctrl' => $GLOBALS['TCA']['tx_importr_domain_model_strategy']['ctrl'],
 	'interface' => array(
 		'showRecordFieldList' => 'title, configuration, resources, targets',
 	),
@@ -14,7 +14,7 @@ $GLOBALS['TCA']['tx_importer_domain_model_strategy'] = array(
 	),
 	'columns' => array(
 		'title' => array(
-			'label' => 'LLL:EXT:importer/Resources/Private/Language/locallang.xml:title',
+			'label' => 'LLL:EXT:importr/Resources/Private/Language/locallang.xml:title',
 			'config' => array(
 				'type' => 'input',
 				'size' => 50,
@@ -22,7 +22,7 @@ $GLOBALS['TCA']['tx_importer_domain_model_strategy'] = array(
 			),
 		),
 		'configuration' => array(
-			'label' => 'LLL:EXT:importer/Resources/Private/Language/locallang.xml:configuration',
+			'label' => 'LLL:EXT:importr/Resources/Private/Language/locallang.xml:configuration',
 			'config' => array(
 				'type' => 'text',
 				'rows' => 15,
@@ -30,7 +30,7 @@ $GLOBALS['TCA']['tx_importer_domain_model_strategy'] = array(
 			),
 		),
 		'resources' => array(
-			'label' => 'LLL:EXT:importer/Resources/Private/Language/locallang.xml:resources',
+			'label' => 'LLL:EXT:importr/Resources/Private/Language/locallang.xml:resources',
 			'config' => array(
 				'type' => 'text',
 				'rows' => 15,
@@ -38,7 +38,7 @@ $GLOBALS['TCA']['tx_importer_domain_model_strategy'] = array(
 			),
 		),
 		'targets' => array(
-			'label' => 'LLL:EXT:importer/Resources/Private/Language/locallang.xml:targets',
+			'label' => 'LLL:EXT:importr/Resources/Private/Language/locallang.xml:targets',
 			'config' => array(
 				'type' => 'text',
 				'rows' => 15,

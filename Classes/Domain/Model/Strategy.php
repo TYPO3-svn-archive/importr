@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\Importer\Domain\Model;
+namespace TYPO3\Importr\Domain\Model;
 
 	/* * *************************************************************
 	 *  Copyright notice
@@ -79,7 +79,7 @@ class Strategy extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 */
 	public function getConfiguration($returnAsArray = FALSE) {
 		if ($returnAsArray) {
-			$configuration = \TYPO3\Importer\Service\Yaml::parse($this->getConfiguration());
+			$configuration = \TYPO3\Importr\Service\Yaml::parse($this->getConfiguration());
 			$configuration['updateInterval'] = (isset($configuration['updateInterval']) && is_numeric($configuration['updateInterval'])) ? $configuration['updateInterval'] : 100;
 			return $configuration;
 		}
@@ -93,7 +93,7 @@ class Strategy extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 */
 	public function getResources($returnAsArray = FALSE) {
 		if ($returnAsArray) {
-			return \TYPO3\Importer\Service\Yaml::parse($this->getResources());
+			return \TYPO3\Importr\Service\Yaml::parse($this->getResources());
 		}
 		return $this->resources;
 	}
@@ -105,7 +105,7 @@ class Strategy extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 */
 	public function getTargets($returnAsArray = FALSE) {
 		if ($returnAsArray) {
-			return \TYPO3\Importer\Service\Yaml::parse($this->getTargets());
+			return \TYPO3\Importr\Service\Yaml::parse($this->getTargets());
 		}
 		return $this->targets;
 	}

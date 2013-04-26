@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\Importer\Service\Resources;
+namespace TYPO3\Importr\Service\Resources;
 /* * *************************************************************
  *  Copyright notice
  *
@@ -58,10 +58,10 @@ class Excel extends AbstractResource implements ResourceInterface {
 	}
 
 	/**
-	 * @param \TYPO3\Importer\Domain\Model\Strategy $strategy
+	 * @param \TYPO3\Importr\Domain\Model\Strategy $strategy
 	 * @param string $filepath
 	 */
-	public function start(\TYPO3\Importer\Domain\Model\Strategy $strategy, $filepath) {
+	public function start(\TYPO3\Importr\Domain\Model\Strategy $strategy, $filepath) {
 		$this->filepath = $filepath;
 	}
 
@@ -85,7 +85,7 @@ class Excel extends AbstractResource implements ResourceInterface {
 		\TYPO3\CMS\Core\Utility\GeneralUtility::makeInstanceService('phpexcel');
 
 		$objReader = \PHPExcel_IOFactory::createReaderForFile($filename);
-		$objReader->setReadDataOnly(true);
+		$objReader->setReadDataOnly(TRUE);
 		$objPHPExcel = $objReader->load($filename);
 		if ($configuration['sheet'] >= 0) {
 			$objWorksheet = $objPHPExcel->getSheet($configuration['sheet']);

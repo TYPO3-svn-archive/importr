@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\Importer\Service\Targets;
+namespace TYPO3\Importr\Service\Targets;
 /*
  *   Copyright notice
  *
@@ -41,10 +41,10 @@ class Dummy extends AbstractTarget implements TargetInterface {
 	}
 
 	/**
-	 * @param \TYPO3\Importer\Domain\Model\Strategy $strategy
+	 * @param \TYPO3\Importr\Domain\Model\Strategy $strategy
 	 * @return void
 	 */
-	public function start(\TYPO3\Importer\Domain\Model\Strategy $strategy) {
+	public function start(\TYPO3\Importr\Domain\Model\Strategy $strategy) {
 
 	}
 

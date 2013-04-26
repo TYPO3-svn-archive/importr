@@ -1,11 +1,11 @@
 <?php
-namespace TYPO3\Importer\ViewHelpers;
+namespace TYPO3\Importr\ViewHelpers;
 /**
  * JSON de- and encode
  *
- * @author     Michael Feinbier <mf@hdnet.de>
+ * @author     Tim Spiekerkötter <tim.spiekerkoetter@hdnet.de>
  * @version    SVN: $Id$
- * @package    Importer
+ * @package    Importr
  * @subpackage ViewHelper
  */
 class JsonViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {

@@ -23,7 +23,7 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  * *************************************************************  */
-namespace TYPO3\Importer\Service\Targets;
+namespace TYPO3\Importr\Service\Targets;
 /**
  * Description of TargetInterface
  *
@@ -38,9 +38,9 @@ interface TargetInterface {
 	const RESULT_ERROR = 5;
 
 	/**
-	 * @param $strategy \TYPO3\Importer\Domain\Model\Strategy
+	 * @param $strategy \TYPO3\Importr\Domain\Model\Strategy
 	 */
-	public function start(\TYPO3\Importer\Domain\Model\Strategy $strategy);
+	public function start(\TYPO3\Importr\Domain\Model\Strategy $strategy);
 
 	/**
 	 *
