@@ -71,7 +71,7 @@ class ImportrController extends ActionController {
 	 */
 	public function previewAction($identifier, \TYPO3\Importr\Domain\Model\Strategy $strategy) {
 		$file = $this->resourceFactory->getObjectFromCombinedIdentifier($identifier);
-		$this->view->assign('file', $file);
+		$this->view->assign('filepath', $file->getPublicUrl());
 		$this->view->assign('strategy', $strategy);
 
 		$previewData = $this->importManager->getPreview($strategy, $file->getPublicUrl());
