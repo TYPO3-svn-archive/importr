@@ -15,8 +15,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'description' => 'Flexible importr for all kinds of files!',
 	'category' => 'be',
 	'shy' => 0,
-	'version' => '6.0.0',
-	'dependencies' => 'extbase,fluid',
+	'version' => '1.0.1',
 	'conflicts' => '',
 	'priority' => '',
 	'loadOrder' => '',
@@ -34,8 +33,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'CGLcompliance_note' => '',
 	'constraints' => array(
 		'depends' => array(
-			'extbase' => '6.0.0-0.0.0',
-			'fluid' => '6.0.0-0.0.0',
+			'typo3' => '6.2.0-0.0.0'
 		),
 		'conflicts' => array(
 		),
