@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\Importr\Service\Resources;
+namespace HDNET\Importr\Service\Resources;
 
 /**
  * Description of AbstractResource

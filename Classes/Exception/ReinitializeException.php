@@ -1,6 +1,7 @@
 <?php
 
-namespace TYPO3\Importr\Exception;
+namespace HDNET\Importr\Exception;
+
 use TYPO3\CMS\Extbase\Exception;
 
 /**
@@ -9,5 +10,6 @@ use TYPO3\CMS\Extbase\Exception;
  * @author timlochmueller
  */
 class ReinitializeException extends Exception {
+
 	//put your code here
 }

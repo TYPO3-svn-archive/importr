@@ -1,5 +1,8 @@
 <?php
-namespace TYPO3\Importr\Service\Targets;
+namespace HDNET\Importr\Service\Targets;
+
+use HDNET\Importr\Domain\Model\Strategy;
+use HDNET\Importr\Utility;
 
 /**
  * Description of Tx_Importr_Service_Targets_DbRecord
@@ -7,10 +10,11 @@ namespace TYPO3\Importr\Service\Targets;
  * @author timlochmueller
  */
 class DbRecord extends AbstractTarget implements TargetInterface {
+
 	/**
-	 * @param \TYPO3\Importr\Domain\Model\Strategy $strategy
+	 * @param \HDNET\Importr\Domain\Model\Strategy $strategy
 	 */
-	public function start(\TYPO3\Importr\Domain\Model\Strategy $strategy) {
+	public function start(Strategy $strategy) {
 
 	}
 
@@ -23,6 +27,7 @@ class DbRecord extends AbstractTarget implements TargetInterface {
 
 	/**
 	 * @param array $entry
+	 *
 	 * @return integer
 	 */
 	public function processEntry(array $entry) {
@@ -36,9 +41,11 @@ class DbRecord extends AbstractTarget implements TargetInterface {
 
 		$insertFields['pid'] = $configuration['pid'];
 
-		$GLOBALS['TYPO3_DB']->exec_INSERTquery($configuration['table'], $insertFields);
+		Utility::getDatabaseConnection()
+		       ->exec_INSERTquery($configuration['table'], $insertFields);
 		return TargetInterface::RESULT_INSERT;
 	}
+
 	/**
 	 *
 	 */

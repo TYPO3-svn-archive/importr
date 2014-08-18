@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\Importr\Service\Targets;
+namespace HDNET\Importr\Service\Targets;
 
 /**
  * Description of AbstractTarget

@@ -3,11 +3,10 @@
  * and open the template in the editor.
  */
 
+Ext.ns('HDNET.Importr');
 
-Ext.ns('TYPO3.Importr');
-
-TYPO3.Importr.Table = Ext.extend(Ext.grid.GridPanel,{
-	constructor: function(config) {
+HDNET.Importr.Table = Ext.extend(Ext.grid.GridPanel, {
+	constructor: function (config) {
 		var store = new Ext.data.ArrayStore({
 			fields: this.createFieldsFromData(config.storeData)
 		});
@@ -21,34 +20,33 @@ TYPO3.Importr.Table = Ext.extend(Ext.grid.GridPanel,{
 			viewConfig: {
 				//forceFit: true
 			}
-		},config);
+		}, config);
 
-
-		TYPO3.Importr.Table.superclass.constructor.call(this, config);
+		HDNET.Importr.Table.superclass.constructor.call(this, config);
 	},
 	/**
 	 * Creates needed Fields-Array for
 	 * ArrayStore fields
 	 * @return array
 	 */
-	createFieldsFromData: function(data) {
-		var fields = [],i,
+	createFieldsFromData: function (data) {
+		var fields = [], i,
 			maxFields = this.countMaxFieldLength(data);
-		for(i = 0;i < maxFields; i++) {
-				fields.push({name: 'field' + i});
-		};
+		for (i = 0; i < maxFields; i++) {
+			fields.push({name: 'field' + i});
+		}
 		return fields;
 	},
 
 	createColumnsFromData: function (data) {
-		var columns = [],i;
-		for(i in data[0]) {
-			if(typeof data[0][i] != 'function') {
-				var label = parseInt(i)+1;
+		var columns = [], i;
+		for (i in data[0]) {
+			if (typeof data[0][i] != 'function') {
+				var label = parseInt(i) + 1;
 				columns.push({
-					header: 'Column #'+ label,
+					header: 'Column #' + label,
 					sortable: true,
-					dataIndex: 'field'+i
+					dataIndex: 'field' + i
 				});
 			}
 		}
@@ -60,10 +58,10 @@ TYPO3.Importr.Table = Ext.extend(Ext.grid.GridPanel,{
 	 * Counts the length of the data Array
 	 * @return integer
 	 */
-	countMaxFieldLength: function(data) {
-		var maxColumns = 0,i;
-		for(i in data) {
-			if(typeof data[i] != 'array' &&  data[i].length > maxColumns) {
+	countMaxFieldLength: function (data) {
+		var maxColumns = 0, i;
+		for (i in data) {
+			if (typeof data[i] != 'array' && data[i].length > maxColumns) {
 				console.log(data[i]);
 				maxColumns = data[i].length;
 			}

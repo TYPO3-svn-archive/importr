@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\Importr\Service\Resources;
+namespace HDNET\Importr\Service\Resources;
 
 /**
  * Description of Excel
@@ -25,6 +25,7 @@ class Dummy extends AbstractResource implements ResourceInterface {
 
 	/**
 	 * @param bool $returnAsArray
+	 *
 	 * @return mixed
 	 */
 	public function getConfiguration() {
@@ -46,18 +47,19 @@ class Dummy extends AbstractResource implements ResourceInterface {
 		} else {
 			$pos1 = rand(0, strlen($this->loremIpsum));
 			$pos2 = rand(0, strlen($this->loremIpsum));
-			if ($pos1 > $pos2)
+			if ($pos1 > $pos2) {
 				return substr($this->loremIpsum, $pos2, $pos1);
-			else
+			} else {
 				return substr($this->loremIpsum, $pos1, $pos2);
+			}
 		}
 	}
 
 	/**
-	 * @param \TYPO3\Importr\Domain\Model\Strategy $strategy
-	 * @param string                            $filepath
+	 * @param \HDNET\Importr\Domain\Model\Strategy $strategy
+	 * @param string                               $filepath
 	 */
-	public function start(\TYPO3\Importr\Domain\Model\Strategy $strategy, $filepath) {
+	public function start(\HDNET\Importr\Domain\Model\Strategy $strategy, $filepath) {
 
 	}
 
@@ -93,6 +95,7 @@ class Dummy extends AbstractResource implements ResourceInterface {
 
 	/**
 	 * @param integer $pointer
+	 *
 	 * @return mixed
 	 */
 	public function getEntry($pointer) {

@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\Importr\Service\Resources;
+namespace HDNET\Importr\Service\Resources;
 
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -31,16 +31,16 @@ class Excel extends AbstractResource implements ResourceInterface {
 	 */
 	public function getConfiguration() {
 		$configuration = parent::getConfiguration();
-		$configuration['skipRows'] = isset($configuration['skipRows']) ? (int) $configuration['skipRows'] : 0;
-		$configuration['sheet'] = isset($configuration['sheet']) ? (int) $configuration['sheet'] : -1;
+		$configuration['skipRows'] = isset($configuration['skipRows']) ? (int)$configuration['skipRows'] : 0;
+		$configuration['sheet'] = isset($configuration['sheet']) ? (int)$configuration['sheet'] : -1;
 		return $configuration;
 	}
 
 	/**
-	 * @param \TYPO3\Importr\Domain\Model\Strategy $strategy
-	 * @param string $filepath
+	 * @param \HDNET\Importr\Domain\Model\Strategy $strategy
+	 * @param string                               $filepath
 	 */
-	public function start(\TYPO3\Importr\Domain\Model\Strategy $strategy, $filepath) {
+	public function start(\HDNET\Importr\Domain\Model\Strategy $strategy, $filepath) {
 		$this->filepath = $filepath;
 	}
 
@@ -81,7 +81,8 @@ class Excel extends AbstractResource implements ResourceInterface {
 		for ($row = 1 + $configuration['skipRows']; $row <= $highestRow; ++$row) {
 			$rowRecord = array();
 			for ($col = 0; $col <= $highestColumnIndex; ++$col) {
-				$rowRecord[] = trim($objWorksheet->getCellByColumnAndRow($col, $row)->getValue());
+				$rowRecord[] = trim($objWorksheet->getCellByColumnAndRow($col, $row)
+				                                 ->getValue());
 			}
 			$this->content[] = $rowRecord;
 		}
@@ -96,6 +97,7 @@ class Excel extends AbstractResource implements ResourceInterface {
 
 	/**
 	 * @param integer $pointer
+	 *
 	 * @return mixed
 	 */
 	public function getEntry($pointer) {

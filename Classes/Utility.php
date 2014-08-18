@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\Importr;
+namespace HDNET\Importr;
 
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
@@ -18,13 +18,13 @@ class Utility {
 	 *
 	 * @return \StdClass
 	 */
-	public static function createObject($className) {
+	static public function createObject($className) {
 		$arguments = func_get_args();
 		$objectManager = new ObjectManager();
 		$object = call_user_func_array(array(
-		                                    $objectManager,
-		                                    'get'
-		                               ), $arguments);
+			$objectManager,
+			'get'
+		), $arguments);
 
 		return $object;
 	}
@@ -32,11 +32,17 @@ class Utility {
 	/**
 	 * Get TYPO3 Version
 	 */
-	public static function getVersion($version = NULL) {
+	static public function getVersion($version = NULL) {
 		if ($version === NULL) {
 			$version = TYPO3_version;
 		}
 		return VersionNumberUtility::convertIntegerToVersionNumber($version);
 	}
 
+	/**
+	 * @return \TYPO3\CMS\Core\Database\DatabaseConnection
+	 */
+	static public function getDatabaseConnection() {
+		return $GLOBALS['TYPO3_DB'];
+	}
 }

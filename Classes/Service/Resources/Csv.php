@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\Importr\Service\Resources;
+namespace HDNET\Importr\Service\Resources;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -45,10 +45,10 @@ class Csv extends AbstractResource implements ResourceInterface {
 	}
 
 	/**
-	 * @param \TYPO3\Importr\Domain\Model\Strategy $strategy
-	 * @param string                                $filepath
+	 * @param \HDNET\Importr\Domain\Model\Strategy $strategy
+	 * @param string                               $filepath
 	 */
-	public function start(\TYPO3\Importr\Domain\Model\Strategy $strategy, $filepath) {
+	public function start(\HDNET\Importr\Domain\Model\Strategy $strategy, $filepath) {
 		$this->filepath = $filepath;
 	}
 

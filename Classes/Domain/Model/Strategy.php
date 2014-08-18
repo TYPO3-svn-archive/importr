@@ -1,8 +1,8 @@
 <?php
-namespace TYPO3\Importr\Domain\Model;
+namespace HDNET\Importr\Domain\Model;
 
+use HDNET\Importr\Service\Yaml;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
-use TYPO3\Importr\Service\Yaml;
 
 /**
  * Documentation for configuration
@@ -68,7 +68,7 @@ class Strategy extends AbstractEntity {
 	/**
 	 * @param bool $returnAsArray
 	 *
-	 * @return string
+	 * @return string|array
 	 */
 	public function getResources($returnAsArray = FALSE) {
 		if ($returnAsArray) {
@@ -80,7 +80,7 @@ class Strategy extends AbstractEntity {
 	/**
 	 * @param bool $returnAsArray
 	 *
-	 * @return string
+	 * @return string|array
 	 */
 	public function getTargets($returnAsArray = FALSE) {
 		if ($returnAsArray) {

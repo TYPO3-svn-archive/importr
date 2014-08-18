@@ -1,6 +1,7 @@
 <?php
-namespace TYPO3\Importr\Controller;
+namespace HDNET\Importr\Controller;
 
+use HDNET\Importr\Domain\Model\Strategy;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
@@ -18,19 +19,19 @@ class ImportrController extends ActionController {
 	protected $resourceFactory;
 
 	/**
-	 * @var \TYPO3\Importr\Domain\Repository\StrategyRepository
+	 * @var \HDNET\Importr\Domain\Repository\StrategyRepository
 	 * @inject
 	 */
 	protected $strategyRepository;
 
 	/**
-	 * @var \TYPO3\Importr\Domain\Repository\ImportRepository
+	 * @var \HDNET\Importr\Domain\Repository\ImportRepository
 	 * @inject
 	 */
 	protected $importRepository;
 
 	/**
-	 * @var \TYPO3\Importr\Service\Manager
+	 * @var \HDNET\Importr\Service\Manager
 	 * @inject
 	 */
 	protected $importManager;
@@ -44,9 +45,8 @@ class ImportrController extends ActionController {
 			$folder = $this->resourceFactory->getFolderObjectFromCombinedIdentifier($combinedIdentifier);
 			$files = array();
 			foreach ($folder->getFiles() as $file) {
-				$files[$file
-					->getStorage()
-					->getUid() . ':' . $file->getIdentifier()] = $file->getName();
+				$files[$file->getStorage()
+				            ->getUid() . ':' . $file->getIdentifier()] = $file->getName();
 			}
 			$this->view->assign('folder', $files);
 		}
@@ -64,12 +64,12 @@ class ImportrController extends ActionController {
 
 	/**
 	 *
-	 * @param string                                $identifier
-	 * @param \TYPO3\Importr\Domain\Model\Strategy $strategy
+	 * @param string                               $identifier
+	 * @param \HDNET\Importr\Domain\Model\Strategy $strategy
 	 *
 	 * @return void
 	 */
-	public function previewAction($identifier, \TYPO3\Importr\Domain\Model\Strategy $strategy) {
+	public function previewAction($identifier, Strategy $strategy) {
 		$file = $this->resourceFactory->getObjectFromCombinedIdentifier($identifier);
 		$this->view->assign('filepath', $file->getPublicUrl());
 		$this->view->assign('strategy', $strategy);
@@ -80,12 +80,12 @@ class ImportrController extends ActionController {
 
 	/**
 	 *
-	 * @param string                                $filepath
-	 * @param \TYPO3\Importr\Domain\Model\Strategy $strategy
+	 * @param string                               $filepath
+	 * @param \HDNET\Importr\Domain\Model\Strategy $strategy
 	 *
 	 * @return void
 	 */
-	public function createAction($filepath, \TYPO3\Importr\Domain\Model\Strategy $strategy) {
+	public function createAction($filepath, Strategy $strategy) {
 		$this->importManager->addToQueue($filepath, $strategy);
 		$this->flashMessageContainer->add('The Import file ' . $filepath . ' width the strategy ' . $strategy->getTitle() . ' was successfully added to the queue', 'Import is in Queue');
 		$this->redirect('index');

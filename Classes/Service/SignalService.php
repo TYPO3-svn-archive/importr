@@ -9,8 +9,10 @@
  * @author     Tim Spiekerkoetter HDNET GmbH & Co. <tim.spiekerkoetter@hdnet.de>
  * @version    CVS: $Id:08.02.13$
  */
-namespace TYPO3\Importr\Service;
+namespace HDNET\Importr\Service;
 
+use HDNET\Importr\Domain\Model\Import;
+use HDNET\Importr\Utility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -35,13 +37,12 @@ class SignalService {
 	 * you should only use this in the before
 	 * configuration if you are fully aware of it!
 	 *
-	 * @param $manager \TYPO3\Importr\Service\Manager
-	 * @param $import \TYPO3\Importr\Domain\Model\Import
+	 * @param $manager \HDNET\Importr\Service\Manager
+	 * @param $import  \HDNET\Importr\Domain\Model\Import
 	 */
-	public function renameFile($manager, $import) {
-		$configuration = $import
-			->getStrategy()
-			->getConfiguration(TRUE);
+	public function renameFile(Manager $manager, Import $import) {
+		$configuration = $import->getStrategy()
+		                        ->getConfiguration(TRUE);
 		if (isset($configuration['after']['rename'])) {
 			$oldFileName = GeneralUtility::getFileAbsFileName($import->getFilepath());
 			$info = pathinfo($oldFileName);
@@ -58,18 +59,19 @@ class SignalService {
 	 * an array, every element is used as a table
 	 * name.
 	 *
-	 * @param \TYPO3\Importr\Service\Manager $manager
-	 * @param array                       $configuration
+	 * @param \HDNET\Importr\Service\Manager     $manager
+	 * @param \HDNET\Importr\Domain\Model\Import $configuration
 	 */
-	public function truncateTable($manager, $configuration) {
+	public function truncateTable(Manager $manager, Import $configuration) {
 		if (isset($configuration['truncate'])) {
 			if (is_array($configuration['truncate'])) {
 				foreach ($configuration['truncate'] as $table) {
-					$GLOBALS['TYPO3_DB']->exec_TRUNCATEquery($table);
+					Utility::getDatabaseConnection()
+					       ->exec_TRUNCATEquery($table);
 				}
-			}
-			else {
-				$GLOBALS['TYPO3_DB']->exec_TRUNCATEquery($configuration['truncate']);
+			} else {
+				Utility::getDatabaseConnection()
+				       ->exec_TRUNCATEquery($configuration['truncate']);
 			}
 		}
 	}

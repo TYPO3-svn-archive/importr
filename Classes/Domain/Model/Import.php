@@ -1,6 +1,7 @@
 <?php
-namespace TYPO3\Importr\Domain\Model;
+namespace HDNET\Importr\Domain\Model;
 
+use HDNET\Importr\Service\Targets\TargetInterface;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 /**
@@ -11,7 +12,7 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 class Import extends AbstractEntity {
 
 	/**
-	 * @var \TYPO3\Importr\Domain\Model\Strategy
+	 * @var \HDNET\Importr\Domain\Model\Strategy
 	 */
 	protected $strategy;
 
@@ -66,7 +67,7 @@ class Import extends AbstractEntity {
 	protected $errors;
 
 	/**
-	 * @return \TYPO3\Importr\Domain\Model\Strategy
+	 * @return \HDNET\Importr\Domain\Model\Strategy
 	 */
 	public function getStrategy() {
 		return $this->strategy;
@@ -108,9 +109,9 @@ class Import extends AbstractEntity {
 	}
 
 	/**
-	 * @param \TYPO3\Importr\Domain\Model\Strategy $strategy
+	 * @param \HDNET\Importr\Domain\Model\Strategy $strategy
 	 */
-	public function setStrategy(\TYPO3\Importr\Domain\Model\Strategy $strategy) {
+	public function setStrategy(Strategy $strategy) {
 		$this->strategy = $strategy;
 	}
 
@@ -284,19 +285,19 @@ class Import extends AbstractEntity {
 	 */
 	public function increaseCount($type) {
 		switch ($type) {
-			case \TYPO3\Importr\Service\Targets\TargetInterface::RESULT_INSERT:
+			case TargetInterface::RESULT_INSERT:
 				$this->setInserted($this->getInserted() + 1);
 				break;
-			case \TYPO3\Importr\Service\Targets\TargetInterface::RESULT_UPDATE:
+			case TargetInterface::RESULT_UPDATE:
 				$this->setUpdated($this->getUpdated() + 1);
 				break;
-			case \TYPO3\Importr\Service\Targets\TargetInterface::RESULT_IGNORED:
+			case TargetInterface::RESULT_IGNORED:
 				$this->setIgnored($this->getIgnored() + 1);
 				break;
-			case \TYPO3\Importr\Service\Targets\TargetInterface::RESULT_UNSURE:
+			case TargetInterface::RESULT_UNSURE:
 				$this->setUnknowns($this->getUnknowns() + 1);
 				break;
-			case \TYPO3\Importr\Service\Targets\TargetInterface::RESULT_ERROR:
+			case TargetInterface::RESULT_ERROR:
 				$this->setErrors($this->getErrors() + 1);
 				break;
 		}

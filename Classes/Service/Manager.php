@@ -5,9 +5,12 @@
  * @package    Extension\importr
  * @subpackage Service
  */
-namespace TYPO3\Importr\Service;
+namespace HDNET\Importr\Service;
 
-use TYPO3\Importr\Exception\ReinitializeException;
+use HDNET\Importr\Domain\Model\Import;
+use HDNET\Importr\Domain\Model\Strategy;
+use HDNET\Importr\Exception\ReinitializeException;
+use HDNET\Importr\Service\Targets\TargetInterface;
 
 /**
  * Service Manager
@@ -21,13 +24,13 @@ use TYPO3\Importr\Exception\ReinitializeException;
 class Manager {
 
 	/**
-	 * @var \TYPO3\Importr\Domain\Repository\ImportRepository
+	 * @var \HDNET\Importr\Domain\Repository\ImportRepository
 	 * @inject
 	 */
 	protected $importRepository;
 
 	/**
-	 * @var \TYPO3\Importr\Domain\Repository\StrategyRepository
+	 * @var \HDNET\Importr\Domain\Repository\StrategyRepository
 	 * @inject
 	 */
 	protected $strategyRepository;
@@ -58,13 +61,13 @@ class Manager {
 	protected $updateInterval = 1;
 
 	/**
-	 * @param string                            $filepath
-	 * @param \TYPO3\Importr\Domain\Model\Strategy $strategy
-	 * @param array                             $configuration
+	 * @param string                               $filepath
+	 * @param \HDNET\Importr\Domain\Model\Strategy $strategy
+	 * @param array                                $configuration
 	 */
-	public function addToQueue($filepath, \TYPO3\Importr\Domain\Model\Strategy $strategy, $configuration = array()) {
-		/** @var $import \TYPO3\Importr\Domain\Model\Import */
-		$import = $this->objectManager->get('TYPO3\Importr\Domain\Model\Import');
+	public function addToQueue($filepath, Strategy $strategy, $configuration = array()) {
+		/** @var $import Import */
+		$import = $this->objectManager->get('HDNET\Importr\Domain\Model\Import');
 		$start = 'now';
 		if (isset($configuration['start'])) {
 			$start = $configuration['start'];
@@ -98,16 +101,16 @@ class Manager {
 	/**
 	 * Get the preview
 	 *
-	 * @param string                            $filepath
-	 * @param \TYPO3\Importr\Domain\Model\Strategy $strategy
+	 * @param string                               $filepath
+	 * @param \HDNET\Importr\Domain\Model\Strategy $strategy
 	 *
 	 * @return array
 	 */
-	public function getPreview(\TYPO3\Importr\Domain\Model\Strategy $strategy, $filepath) {
+	public function getPreview(Strategy $strategy, $filepath) {
 		$data = array();
 		$resources = $this->initializeResources($strategy, $filepath);
 		foreach ($resources as $resource) {
-			/** @var \TYPO3\Importr\Service\Resources\ResourceInterface $resource */
+			/** @var \HDNET\Importr\Service\Resources\ResourceInterface $resource */
 			// Resourcen Object anhand der Datei auswählen
 			if (preg_match($resource->getFilepathExpression(), $filepath)) {
 				// Resource "benutzen"
@@ -127,18 +130,20 @@ class Manager {
 	/**
 	 * Magic Runner
 	 *
-	 * @param \TYPO3\Importr\Domain\Model\Import $import
+	 * @param \HDNET\Importr\Domain\Model\Import $import
 	 */
-	protected function runImport(\TYPO3\Importr\Domain\Model\Import $import) {
-		$this->signalSlotDispatcher->dispatch(__CLASS__, 'preImport', array($this, $import));
+	protected function runImport(Import $import) {
+		$this->signalSlotDispatcher->dispatch(__CLASS__, 'preImport', array(
+			$this,
+			$import
+		));
 		$resources = $this->initializeResourcesByImport($import);
 		$targets = $this->initializeTargets($import);
-		$strategyConfiguration = $import
-			->getStrategy()
-			->getConfiguration(TRUE);
+		$strategyConfiguration = $import->getStrategy()
+		                                ->getConfiguration(TRUE);
 
 		foreach ($resources as $resource) {
-			/** @var \TYPO3\Importr\Service\Resources\ResourceInterface $resource */
+			/** @var \HDNET\Importr\Service\Resources\ResourceInterface $resource */
 			// Resourcen Object anhand der Datei auswählen
 			if (preg_match($resource->getFilepathExpression(), $import->getFilepath())) {
 				if (is_array($strategyConfiguration['before'])) {
@@ -171,23 +176,26 @@ class Manager {
 				break;
 			}
 		}
-		$this->signalSlotDispatcher->dispatch(__CLASS__, 'pastImport', array($this, $import));
+		$this->signalSlotDispatcher->dispatch(__CLASS__, 'pastImport', array(
+			$this,
+			$import
+		));
 	}
 
 	/**
-	 * @param \TYPO3\Importr\Service\Targets\TargetInterface $target
-	 * @param mixed                                       $entry
-	 * @param \TYPO3\Importr\Domain\Model\Import             $import
-	 * @param int                                         $pointer
+	 * @param \HDNET\Importr\Service\Targets\TargetInterface $target
+	 * @param mixed                                          $entry
+	 * @param \HDNET\Importr\Domain\Model\Import             $import
+	 * @param int                                            $pointer
 	 *
 	 * @throws \Exception
 	 */
-	protected function processTarget(\TYPO3\Importr\Service\Targets\TargetInterface $target, $entry, \TYPO3\Importr\Domain\Model\Import $import, $pointer) {
+	protected function processTarget(TargetInterface $target, $entry, Import $import, $pointer) {
 		try {
 			$result = $target->processEntry($entry);
 			$import->increaseCount($result);
 		} catch (\Exception $e) {
-			$import->increaseCount(\TYPO3\Importr\Service\Targets\TargetInterface::RESULT_ERROR);
+			$import->increaseCount(TargetInterface::RESULT_ERROR);
 			$this->updateImport($import, $pointer + 1);
 			throw $e;
 		}
@@ -201,14 +209,17 @@ class Manager {
 	 * @throws ReinitializeException
 	 */
 	protected function parseConfiguration(array $configuration) {
-		$this->signalSlotDispatcher->dispatch(__CLASS__, 'preParseConfiguration', array($this, $configuration));
+		$this->signalSlotDispatcher->dispatch(__CLASS__, 'preParseConfiguration', array(
+			$this,
+			$configuration
+		));
 		if (isset($configuration['updateInterval'])) {
 			$this->updateInterval = (int)$configuration['updateInterval'];
 		}
 		if (isset($configuration['createImport']) && is_array($configuration['createImport'])) {
 			foreach ($configuration['createImport'] as $create) {
 				$strategy = $this->strategyRepository->findByUid((int)$create['importId']);
-				if ($strategy instanceof \TYPO3\Importr\Domain\Model\Strategy) {
+				if ($strategy instanceof Strategy) {
 					$filepath = isset($create['filepath']) ? $create['filepath'] : '';
 					$this->addToQueue($filepath, $strategy, $create);
 				}
@@ -217,7 +228,10 @@ class Manager {
 		if (isset($configuration['reinitializeScheduler'])) {
 			throw new ReinitializeException();
 		}
-		$this->signalSlotDispatcher->dispatch(__CLASS__, 'pastParseConfiguration', array($this, $configuration));
+		$this->signalSlotDispatcher->dispatch(__CLASS__, 'pastParseConfiguration', array(
+			$this,
+			$configuration
+		));
 	}
 
 	/**
@@ -232,21 +246,21 @@ class Manager {
 	}
 
 	/**
-	 * @param \TYPO3\Importr\Domain\Model\Import $import
+	 * @param \HDNET\Importr\Domain\Model\Import $import
 	 *
 	 * @return array
 	 */
-	protected function initializeResourcesByImport(\TYPO3\Importr\Domain\Model\Import $import) {
+	protected function initializeResourcesByImport(Import $import) {
 		return $this->initializeResources($import->getStrategy(), $import->getFilepath());
 	}
 
 	/**
-	 * @param \TYPO3\Importr\Domain\Model\Strategy $strategy
-	 * @param string                            $filepath
+	 * @param \HDNET\Importr\Domain\Model\Strategy $strategy
+	 * @param string                               $filepath
 	 *
 	 * @return array
 	 */
-	protected function initializeResources(\TYPO3\Importr\Domain\Model\Strategy $strategy, $filepath) {
+	protected function initializeResources(Strategy $strategy, $filepath) {
 		$resources = array();
 		$resourceConfiguration = $strategy->getResources(TRUE);
 		foreach ($resourceConfiguration as $resource => $configuration) {
@@ -259,15 +273,14 @@ class Manager {
 	}
 
 	/**
-	 * @param \TYPO3\Importr\Domain\Model\Import $import
+	 * @param \HDNET\Importr\Domain\Model\Import $import
 	 *
 	 * @return array
 	 */
-	protected function initializeTargets(\TYPO3\Importr\Domain\Model\Import $import) {
+	protected function initializeTargets(Import $import) {
 		$targets = array();
-		$targetConfiguration = $import
-			->getStrategy()
-			->getTargets(TRUE);
+		$targetConfiguration = $import->getStrategy()
+		                              ->getTargets(TRUE);
 		foreach ($targetConfiguration as $target => $configuration) {
 			$object = $this->objectManager->create($target);
 			$object->setConfiguration($configuration);
@@ -279,10 +292,10 @@ class Manager {
 	}
 
 	/**
-	 * @param \TYPO3\Importr\Domain\Model\Import $import
-	 * @param bool|int                        $pointer
+	 * @param \HDNET\Importr\Domain\Model\Import $import
+	 * @param bool|int                           $pointer
 	 */
-	protected function updateImport(\TYPO3\Importr\Domain\Model\Import $import, $pointer = FALSE) {
+	protected function updateImport(Import $import, $pointer = FALSE) {
 		if ($pointer) {
 			$import->setPointer($pointer);
 		}

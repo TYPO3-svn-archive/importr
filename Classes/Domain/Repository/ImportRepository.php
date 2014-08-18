@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\Importr\Domain\Repository;
+namespace HDNET\Importr\Domain\Repository;
 
 use TYPO3\CMS\Extbase\Persistence\Generic\Query;
 use TYPO3\CMS\Extbase\Persistence\Repository;
@@ -10,6 +10,7 @@ class ImportRepository extends Repository {
 	 * Find imports for the user queue
 	 *
 	 * @param int $days
+	 *
 	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array
 	 */
 	public function findUserQueue($days = 7) {

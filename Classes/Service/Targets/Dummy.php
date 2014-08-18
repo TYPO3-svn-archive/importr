@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\Importr\Service\Targets;
+namespace HDNET\Importr\Service\Targets;
 
 /**
  * Description of ExtbaseModel
@@ -19,10 +19,11 @@ class Dummy extends AbstractTarget implements TargetInterface {
 	}
 
 	/**
-	 * @param \TYPO3\Importr\Domain\Model\Strategy $strategy
+	 * @param \HDNET\Importr\Domain\Model\Strategy $strategy
+	 *
 	 * @return void
 	 */
-	public function start(\TYPO3\Importr\Domain\Model\Strategy $strategy) {
+	public function start(\HDNET\Importr\Domain\Model\Strategy $strategy) {
 
 	}
 
@@ -34,12 +35,17 @@ class Dummy extends AbstractTarget implements TargetInterface {
 	 */
 	public function processEntry(array $entry) {
 		$configuration = $this->getConfiguration();
-		if ($configuration['sleepSeconds'] > 0)
+		if ($configuration['sleepSeconds'] > 0) {
 			sleep($configuration['sleepSeconds']);
+		}
 
 		// Return
 		$results = array(
-			'ignored', 'insert', 'error', 'unsure', 'update'
+			'ignored',
+			'insert',
+			'error',
+			'unsure',
+			'update'
 		);
 		if ($configuration['result'] == 'random') {
 			$configuration['result'] = $results[rand(0, sizeof($results) - 1)];
